@@ -68,7 +68,7 @@ io.sockets.on('connection', function(socket) {
   })
 })
 
-/* 서버를 8080 포트로 listen */
-server.listen(8080, function() {
+/* 서버를 8080 포트로 listen - process.env.PORT 를 추가해 주어 heroku 에서 실행될 수 있게 해준다.*/
+server.listen(process.env.PORT || 8080, function() {
   console.log('서버 실행 중..')
 })
