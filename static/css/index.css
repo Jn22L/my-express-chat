@@ -6,7 +6,7 @@
     background-color: lightblue;
     text-align: center;
     width: 500px;
-    height: 800px;
+    height: 500px;
   }
   
   /* 채팅 영역 */
@@ -40,7 +40,7 @@
     margin: auto;
     background-color: lemonchiffon;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 1px;
   }
   
   /* 상대방이 보낸 메시지 */
@@ -49,5 +49,5 @@
     margin: auto;
     background-color: white;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 1px;
   }
