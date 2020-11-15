@@ -3,7 +3,7 @@ var socket = io()
 /* 접속 되었을 때 실행 */
 socket.on('connect', function() {
   /* 이름을 입력받고 */
-  var name = prompt('반갑습니다!', '')
+  //var name = prompt('반갑습니다!', '')
 
   /* 이름이 빈칸인 경우 */
   if(!name) {
@@ -11,7 +11,7 @@ socket.on('connect', function() {
   }
 
   /* 서버에 새로운 유저가 왔다고 알림 */
-  socket.emit('newUser', name)
+  //socket.emit('newUser', name)
 })
 
 /* 서버로부터 데이터 받은 경우 */
@@ -42,13 +42,39 @@ socket.on('update', function(data) {
   chat.appendChild(message)
 })
 
+/* 참여하기 */
+function join() {
+
+
+  var input_name = document.getElementById('join_input');
+  var btn_join   = document.getElementById('join_btn');
+  console.log(input_name.value);
+  if(input_name.value.trim() == "") {
+    alert("닉네님을 입력하세요!");
+    document.getElementById('join_input').value = '';
+    return;
+  }
+
+  var input_send = document.getElementById('input_send');
+  var btn_send  = document.getElementById('btn_send');
+
+  input_name.style.visibility = 'hidden';
+  btn_join.style.visibility = 'hidden';
+
+  input_send.style.visibility = 'visible';
+  btn_send.style.visibility = 'visible';
+  
+  /* 서버에 새로운 유저가 왔다고 알림 */
+  socket.emit('newUser', input_name.value)
+}
+
 /* 메시지 전송 함수 */
 function send() {
   // 입력되어있는 데이터 가져오기
-  var message = document.getElementById('test').value
+  var message = document.getElementById('input_send').value
   
   // 가져왔으니 데이터 빈칸으로 변경
-  document.getElementById('test').value = ''
+  document.getElementById('input_send').value = ''
 
   // 내가 전송할 메시지 클라이언트에게 표시
   var chat = document.getElementById('chat')
