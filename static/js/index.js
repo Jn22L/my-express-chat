@@ -18,8 +18,23 @@ socket.on("connect", function () {
 socket.on("update", function (data) {
   var chat = document.getElementById("chat");
 
+  var ranNumber = Math.floor(Math.random() * 10);
+  var ranColor = Math.floor(Math.random() * 10);
+
+  // 색깔이 계속 바뀌네 , 고정시켜야 겠다.
+  console.log("randomColor", ranNumber);
+  if (ranNumber >= 0 && ranNumber < 2) {
+    ranColor = "color:red;";
+  } else if (ranNumber >= 3 && ranNumber < 5) {
+    ranColor = "color:blue;";
+  } else {
+    ranColor = "color:yellow;";
+  }
+
   var message = document.createElement("div");
-  var node = document.createTextNode(`${data.name}: ${data.message}`);
+  //var node = document.createTextNode(`[${data.name}] ${data.message}`);
+  var node = document.createElement("div");
+  node.innerHTML = `<span style="${ranColor}">[${data.name}]</span> ${data.message}`;
   var className = "";
 
   // 타입에 따라 적용할 클래스를 다르게 지정
