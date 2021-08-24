@@ -61,7 +61,7 @@ function join() {
   btn_join.style.visibility = "hidden";
 
   input_send.style.visibility = "visible";
-  btn_send.style.visibility = "visible";
+  //btn_send.style.visibility = "visible";
   input_send.focus();
 
   /* 서버에 새로운 유저가 왔다고 알림 */

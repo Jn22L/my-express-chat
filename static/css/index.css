@@ -51,3 +51,13 @@
   border-radius: 5px;
   margin-top: 1px;
 }
+
+.button {
+  background-color: white;
+  border: 1px solid #cccccc;
+}
+
+input:focus {
+  border: solid 1px lightgray;
+  outline: none;
+}
