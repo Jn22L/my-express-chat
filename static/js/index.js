@@ -62,6 +62,7 @@ function join() {
 
   input_send.style.visibility = "visible";
   btn_send.style.visibility = "visible";
+  input_send.focus();
 
   /* 서버에 새로운 유저가 왔다고 알림 */
   socket.emit("newUser", input_name.value);
