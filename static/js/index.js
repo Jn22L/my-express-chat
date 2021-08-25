@@ -26,7 +26,7 @@ socket.on("update", function (data) {
   var message = document.createElement("div");
   //var node = document.createTextNode(`[${data.name}] ${data.message}`);
   var node = document.createElement("div");
-  node.innerHTML = `<span style="${data.color}">[${data.name}]</span> ${data.message}`;
+  node.innerHTML = `<span style="${data.color}">[${data.name}]</span><span style="${data.color}">${data.message}</span>`;
   var className = "";
 
   // 타입에 따라 적용할 클래스를 다르게 지정
@@ -81,7 +81,7 @@ function join() {
   if (seconds >= 0 && seconds <= 2) {
     color = "color:#4285f4;"; //구글 BLUE
   } else if (seconds >= 3 && seconds <= 5) {
-    color = "color:#f4b400;"; // 구글 YELLOW
+    color = "color:#cc6600;"; // 갈색
   } else if (seconds >= 6 && seconds <= 8) {
     color = "color:#0f9d58;"; // 구글 GREEN
   } else {
@@ -104,6 +104,12 @@ function send() {
   // 입력되어있는 데이터 가져오기
   var message = document.getElementById("input_send").value;
 
+  if (message.trim() == "") {
+    //alert("내용을 입력하세요!");
+    //document.getElementById("input_send").value = "";
+    return;
+  }
+
   // 가져왔으니 데이터 빈칸으로 변경
   document.getElementById("input_send").value = "";
 
@@ -112,7 +118,7 @@ function send() {
   var msg = document.createElement("div");
   //var node = document.createTextNode(message);
   var node = document.createElement("div");
-  node.innerHTML = `<span style="${socket.color}">[${socket.name}]</span> ${message}`;
+  node.innerHTML = `<span style="${socket.color}">[${socket.name}]</span><span style="${socket.color}">${message}</span>`;
   msg.classList.add("me");
   msg.appendChild(node);
   chat.appendChild(msg);
