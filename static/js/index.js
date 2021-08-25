@@ -1,5 +1,10 @@
 var socket = io();
 
+console.log("클라이언트 소켓", socket);
+
+socket.name = "";
+socket.color = "";
+
 /* 접속 되었을 때 실행 */
 socket.on("connect", function () {
   /* 이름을 입력받고 */
@@ -17,24 +22,10 @@ socket.on("connect", function () {
 /* 서버로부터 데이터 받은 경우 */
 socket.on("update", function (data) {
   var chat = document.getElementById("chat");
-
-  var ranNumber = Math.floor(Math.random() * 10);
-  var ranColor = Math.floor(Math.random() * 10);
-
-  // 색깔이 계속 바뀌네 , 고정시켜야 겠다.
-  console.log("randomColor", ranNumber);
-  if (ranNumber >= 0 && ranNumber < 2) {
-    ranColor = "color:red;";
-  } else if (ranNumber >= 3 && ranNumber < 5) {
-    ranColor = "color:blue;";
-  } else {
-    ranColor = "color:yellow;";
-  }
-
   var message = document.createElement("div");
   //var node = document.createTextNode(`[${data.name}] ${data.message}`);
   var node = document.createElement("div");
-  node.innerHTML = `<span style="${ranColor}">[${data.name}]</span> ${data.message}`;
+  node.innerHTML = `<span style="${data.color}">[${data.name}]</span> ${data.message}`;
   var className = "";
 
   // 타입에 따라 적용할 클래스를 다르게 지정
@@ -79,12 +70,33 @@ function join() {
   //btn_send.style.visibility = "visible";
   input_send.focus();
 
+  /* 소켓에 유저 색상 저장 */
+  //var ranNumber = Math.floor(Math.random() * 10);
+  //var color = Math.floor(Math.random() * 10);
+  const date = new Date();
+  var seconds = String(date.getSeconds()).slice(-1);
+  console.log("seconds", seconds);
+  if (seconds >= 0 && seconds < 2) {
+    color = "color:#964b00;";
+  } else if (seconds >= 3 && seconds < 5) {
+    color = "color:blue;";
+  } else {
+    color = "color:green;";
+  }
+  socket.color = color;
+
+  /* 소켓에 유저 이름 저장 */
+  socket.name = input_name.value;
+
+  console.log("클소켓", socket);
+
   /* 서버에 새로운 유저가 왔다고 알림 */
-  socket.emit("newUser", input_name.value);
+  socket.emit("newUser", { type: "message", name: input_name.value, color: color });
 }
 
 /* 메시지 전송 함수 */
 function send() {
+  console.log("socket", socket.name);
   // 입력되어있는 데이터 가져오기
   var message = document.getElementById("input_send").value;
 
@@ -94,7 +106,9 @@ function send() {
   // 내가 전송할 메시지 클라이언트에게 표시
   var chat = document.getElementById("chat");
   var msg = document.createElement("div");
-  var node = document.createTextNode(message);
+  //var node = document.createTextNode(message);
+  var node = document.createElement("div");
+  node.innerHTML = `<span style="${socket.color}">[${socket.name}]</span> ${message}`;
   msg.classList.add("me");
   msg.appendChild(node);
   chat.appendChild(msg);
