@@ -52,6 +52,7 @@ io.sockets.on("connection", function (socket) {
   socket.on("message", function (data) {
     /* 받은 데이터에 누가 보냈는지 이름을 추가 */
     data.name = socket.name;
+    data.color = socket.color;
     console.log("data", data);
 
     /* 보낸 사람을 제외한 나머지 유저에게 메시지 전송 */

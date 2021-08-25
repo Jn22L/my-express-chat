@@ -21,6 +21,7 @@ socket.on("connect", function () {
 
 /* 서버로부터 데이터 받은 경우 */
 socket.on("update", function (data) {
+  console.log("서버로부터 받은", data);
   var chat = document.getElementById("chat");
   var message = document.createElement("div");
   //var node = document.createTextNode(`[${data.name}] ${data.message}`);
@@ -73,15 +74,18 @@ function join() {
   /* 소켓에 유저 색상 저장 */
   //var ranNumber = Math.floor(Math.random() * 10);
   //var color = Math.floor(Math.random() * 10);
+
   const date = new Date();
   var seconds = String(date.getSeconds()).slice(-1);
   console.log("seconds", seconds);
-  if (seconds >= 0 && seconds < 2) {
-    color = "color:#964b00;";
-  } else if (seconds >= 3 && seconds < 5) {
-    color = "color:blue;";
+  if (seconds >= 0 && seconds <= 2) {
+    color = "color:#4285f4;"; //구글 BLUE
+  } else if (seconds >= 3 && seconds <= 5) {
+    color = "color:#f4b400;"; // 구글 YELLOW
+  } else if (seconds >= 6 && seconds <= 8) {
+    color = "color:#0f9d58;"; // 구글 GREEN
   } else {
-    color = "color:green;";
+    color = "color:black;";
   }
   socket.color = color;
 
