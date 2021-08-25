@@ -26,7 +26,7 @@ socket.on("update", function (data) {
   var message = document.createElement("div");
   //var node = document.createTextNode(`[${data.name}] ${data.message}`);
   var node = document.createElement("div");
-  node.innerHTML = `<span style="${data.color}">[${data.name}]</span><span style="${data.color}">${data.message}</span>`;
+  node.innerHTML = `<span style="${data.color}">[${data.name}] </span><span style="${data.color}">${data.message}</span>`;
   var className = "";
 
   // 타입에 따라 적용할 클래스를 다르게 지정
@@ -118,7 +118,7 @@ function send() {
   var msg = document.createElement("div");
   //var node = document.createTextNode(message);
   var node = document.createElement("div");
-  node.innerHTML = `<span style="${socket.color}">[${socket.name}]</span><span style="${socket.color}">${message}</span>`;
+  node.innerHTML = `<span style="${socket.color}">[${socket.name}] </span><span style="${socket.color}">${message}</span>`;
   msg.classList.add("me");
   msg.appendChild(node);
   chat.appendChild(msg);
