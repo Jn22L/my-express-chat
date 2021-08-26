@@ -17,6 +17,18 @@ function initDraw(event) {
   socket.emit("draw", { type: "move", X: pos.X, Y: pos.Y });
 }
 
+function initDraw2(event) {
+  ctx.beginPath();
+  pos.drawable = true;
+  var coors = getPosition(event);
+  pos.X = coors.X;
+  pos.Y = coors.Y;
+  ctx.moveTo(pos.X, pos.Y);
+
+  // 서버로 좌표 전송
+  socket.emit("draw", { type: "move", X: pos.X, Y: pos.Y });
+}
+
 function draw(event) {
   var coors = getPosition(event);
   ctx.lineTo(coors.X, coors.Y);
@@ -28,7 +40,27 @@ function draw(event) {
   socket.emit("draw", { type: "draw", X: pos.X, Y: pos.Y });
 }
 
+function draw2(event) {
+  var coors = getPosition(event);
+  ctx.lineTo(coors.X, coors.Y);
+  pos.X = coors.X;
+  pos.Y = coors.Y;
+  ctx.stroke();
+
+  // 서버로 좌표 전송
+  socket.emit("draw", { type: "draw", X: pos.X, Y: pos.Y });
+}
+
 function finishDraw() {
+  pos.drawable = false;
+  pos.X = -1;
+  pos.Y = -1;
+
+  // 서버로 좌표 전송
+  socket.emit("draw", { type: "finishDraw", X: pos.X, Y: pos.Y });
+}
+
+function finishDraw2() {
   pos.drawable = false;
   pos.X = -1;
   pos.Y = -1;
@@ -50,15 +82,14 @@ function getPosition(event) {
  * @return
  */
 socket.on("draw", function (data) {
-  var drawRecv = new Path2D();
   switch (data.type) {
     case "move":
-      drawRecv.moveTo(data.X, data.Y);
+      ctx.moveTo(data.X, data.Y);
       break;
 
     case "draw":
-      drawRecv.lineTo(data.X, data.Y);
-      ctx.stroke(drawRecv);
+      ctx.lineTo(data.X, data.Y);
+      ctx.stroke();
       break;
 
     case "finishDraw":
@@ -69,19 +100,23 @@ socket.on("draw", function (data) {
 function listener(event) {
   switch (event.type) {
     case "mousedown":
-    case "touchstart":
       initDraw(event);
       break;
-
     case "mousemove":
-    case "touchmove":
       if (pos.drawable) draw(event);
       break;
-
     case "mouseout":
     case "mouseup":
-    case "touchend":
       finishDraw();
+      break;
+    case "touchstart":
+      initDraw2(event);
+      break;
+    case "touchmove":
+      if (pos.drawable) draw2(event);
+      break;
+    case "touchend":
+      finishDraw2();
       break;
   }
 }
