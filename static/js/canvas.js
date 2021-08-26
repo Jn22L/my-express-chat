@@ -14,7 +14,6 @@ function initDraw(event) {
   ctx.beginPath();
   pos.drawable = true;
   var coors = getPosition(event);
-  //var coors = getPosition2(event);
   pos.from_X = pos.X;
   pos.from_Y = pos.Y;
   pos.X = coors.X;
@@ -23,7 +22,6 @@ function initDraw(event) {
 
   // 서버로 좌표 전송
   socket.emit("draw", { type: "move", X: pos.X, Y: pos.Y });
-  console.log("moveTo", pos.from_X, pos.from_Y, pos.X, pos.Y);
 }
 
 function draw(event) {
@@ -40,7 +38,6 @@ function draw(event) {
 
   // 서버로 좌표 전송
   socket.emit("draw", { type: "draw", from_X: pos.from_X, from_Y: pos.from_Y, X: pos.X, Y: pos.Y });
-  console.log("lineTo", pos.from_X, pos.from_Y, pos.X, pos.Y);
 }
 
 function finishDraw() {
@@ -54,34 +51,21 @@ function finishDraw() {
 
 function getPosition(event) {
   console.log(event);
-  // css 에서 position:fixed 설정시 좌표값 부정확.
-  var x = event.pageX - canvas.offsetLeft;
-  var y = event.pageY - canvas.offsetTop;
 
-  var x = event.pageX - canvas.offsetLeft - 8;
-  var y = event.pageY - canvas.offsetTop - 8;
-
-  // position:fixed 정확하게 가져오도록 수정.
-  // var x = event.layerX;
-  // var y = event.layerY;
-
-  console.log("getPosition", event.pageX, event.pageX, canvas.offsetLeft, canvas.offsetTop);
-  console.log("getPosition", x, y);
-  return { X: x, Y: y };
-}
-
-function getPosition2(event) {
-  // css 에서 position:fixed 설정시 좌표값 부정확.
+  // css 에서 position:fixed 설정시 8차이 발생 -> 주석
   // var x = event.pageX - canvas.offsetLeft;
   // var y = event.pageY - canvas.offsetTop;
 
-  // position:fixed 정확하게 가져오도록 수정.
-  var x = event.layerX;
-  var y = event.layerY;
+  // 좌표 8 차이 보정 하드코딩 : 추후 시간되면 찾아볼것 ?
+  var x = event.pageX - canvas.offsetLeft - 8;
+  var y = event.pageY - canvas.offsetTop - 8;
 
-  console.log("getPosition", event.pageX, event.pageX, canvas.offsetLeft, canvas.offsetTop);
-  console.log("getPosition", x, y);
   return { X: x, Y: y };
+}
+
+function clearCanvas() {
+  console.log("clearCanvas");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 /**
@@ -140,4 +124,6 @@ window.onload = function () {
   canvas.addEventListener("touchstart", listener);
   canvas.addEventListener("touchmove", listener);
   canvas.addEventListener("touchend ", listener);
+
+  document.getElementById("canvas_clear").addEventListener("click", clearCanvas);
 };
