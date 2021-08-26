@@ -63,3 +63,7 @@ input:focus {
   border: solid 1px lightblue;
   outline: none;
 }
+
+canvas {
+  border: 1px solid black;
+}

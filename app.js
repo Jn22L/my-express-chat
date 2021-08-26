@@ -33,14 +33,24 @@ io.sockets.on("connection", function (socket) {
 
   /* 메시지 수신 */
   socket.on("message", function (data) {
-    console.log("message.data", data);
-
     data.userName = socket.userName;
     data.userColor = socket.userColor;
 
     //socket.broadcast.emit("update", data); // 자신을 제외한 모든 socket 에게 emit
     io.sockets.emit("update", data); // 모든 socket 에게 emit
     console.log("data", data);
+  });
+
+  /* canvas 좌표 수신 */
+  socket.on("draw", function (data) {
+    console.log("message.data", data);
+
+    //data.userName = socket.userName;
+    //data.userColor = socket.userColor;
+
+    socket.broadcast.emit("draw", data); // 자신을 제외한 모든 socket 에게 emit
+    //io.sockets.emit("update", data); // 모든 socket 에게 emit
+    //console.log("data", data);
   });
 
   /* 접속 해제 */
