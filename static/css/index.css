@@ -9,6 +9,7 @@
   text-align: left;
   width: 350px;
   height: 250px;
+  position: fixed;
 }
 
 /* 채팅 영역 */
