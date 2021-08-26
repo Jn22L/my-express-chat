@@ -14,6 +14,7 @@ function initDraw(event) {
   ctx.beginPath();
   pos.drawable = true;
   var coors = getPosition(event);
+  //var coors = getPosition2(event);
   pos.from_X = pos.X;
   pos.from_Y = pos.Y;
   pos.X = coors.X;
@@ -52,14 +53,33 @@ function finishDraw() {
 }
 
 function getPosition(event) {
+  console.log(event);
   // css 에서 position:fixed 설정시 좌표값 부정확.
   var x = event.pageX - canvas.offsetLeft;
   var y = event.pageY - canvas.offsetTop;
+
+  var x = event.pageX - canvas.offsetLeft - 8;
+  var y = event.pageY - canvas.offsetTop - 8;
 
   // position:fixed 정확하게 가져오도록 수정.
   // var x = event.layerX;
   // var y = event.layerY;
 
+  console.log("getPosition", event.pageX, event.pageX, canvas.offsetLeft, canvas.offsetTop);
+  console.log("getPosition", x, y);
+  return { X: x, Y: y };
+}
+
+function getPosition2(event) {
+  // css 에서 position:fixed 설정시 좌표값 부정확.
+  // var x = event.pageX - canvas.offsetLeft;
+  // var y = event.pageY - canvas.offsetTop;
+
+  // position:fixed 정확하게 가져오도록 수정.
+  var x = event.layerX;
+  var y = event.layerY;
+
+  console.log("getPosition", event.pageX, event.pageX, canvas.offsetLeft, canvas.offsetTop);
   console.log("getPosition", x, y);
   return { X: x, Y: y };
 }
