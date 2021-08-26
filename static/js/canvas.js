@@ -45,19 +45,20 @@ function getPosition(event) {
 
 /**
  * 서버에서 canvas 좌표 수신시
- *
+ * -> 동시에 그릴때 엉망되는 문제 .. 어떻게 분리하지?
  * @param
  * @return
  */
 socket.on("draw", function (data) {
+  var drawRecv = new Path2D();
   switch (data.type) {
     case "move":
-      ctx.moveTo(data.X, data.Y);
+      drawRecv.moveTo(data.X, data.Y);
       break;
 
     case "draw":
-      ctx.lineTo(data.X, data.Y);
-      ctx.stroke();
+      drawRecv.lineTo(data.X, data.Y);
+      ctx.stroke(drawRecv);
       break;
 
     case "finishDraw":
