@@ -1,28 +1,15 @@
-/* 설치한 express 모듈 불러오기 */
 const express = require("express");
-
-/* 설치한 socket.io 모듈 불러오기 */
 const socket = require("socket.io");
-
-/* Node.js 기본 내장 모듈 불러오기 */
 const http = require("http");
-
-/* Node.js 기본 내장 모듈 불러오기 */
 const fs = require("fs");
 
-/* express 객체 생성 */
 const app = express();
-
-/* express http 서버 생성 */
 const server = http.createServer(app);
-
-/* 생성된 서버를 socket.io에 바인딩 */
 const io = socket(server);
 
 app.use("/css", express.static("./static/css"));
 app.use("/js", express.static("./static/js"));
 
-/* Get 방식으로 / 경로에 접속하면 실행 됨 */
 app.get("/", function (request, response) {
   fs.readFile("./static/index.html", function (err, data) {
     if (err) {
@@ -36,35 +23,30 @@ app.get("/", function (request, response) {
 });
 
 io.sockets.on("connection", function (socket) {
-  /* 새로운 유저가 접속했을 경우 다른 소켓에게도 알려줌 */
+  /* 닉네임 입력후 조인 */
   socket.on("newUser", function (data) {
-    console.log(data.name + " 님이 접속하였습니다.");
-
-    /* 소켓에 이름 저장해두기 */
-    socket.name = data.name;
-    socket.color = data.color;
-
-    /* 모든 소켓에게 전송 */
-    io.sockets.emit("update", { type: "connect", name: "SERVER", message: data.name + "님이 접속하였습니다." });
+    console.log("newUser.data", data);
+    socket.userName = data.userName;
+    socket.userColor = data.userColor;
+    io.sockets.emit("update", { type: "connect", userName: "SERVER", message: data.userName + "님이 접속하였습니다." });
   });
 
-  /* 전송한 메시지 받기 */
+  /* 메시지 수신 */
   socket.on("message", function (data) {
-    /* 받은 데이터에 누가 보냈는지 이름을 추가 */
-    data.name = socket.name;
-    data.color = socket.color;
-    console.log("data", data);
+    console.log("message.data", data);
 
-    /* 보낸 사람을 제외한 나머지 유저에게 메시지 전송 */
-    socket.broadcast.emit("update", data);
+    data.userName = socket.userName;
+    data.userColor = socket.userColor;
+
+    //socket.broadcast.emit("update", data); // 자신을 제외한 모든 socket 에게 emit
+    io.sockets.emit("update", data); // 모든 socket 에게 emit
+    console.log("data", data);
   });
 
-  /* 접속 종료 */
+  /* 접속 해제 */
   socket.on("disconnect", function () {
     console.log(socket.name + "님이 나가셨습니다.");
-
-    /* 나가는 사람을 제외한 나머지 유저에게 메시지 전송 */
-    socket.broadcast.emit("update", { type: "disconnect", name: "SERVER", message: socket.name + "님이 나가셨습니다." });
+    socket.broadcast.emit("update", { type: "disconnect", userName: "SERVER", message: socket.userName + "님이 나가셨습니다." });
   });
 });
 
