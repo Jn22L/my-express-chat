@@ -68,15 +68,18 @@ socket.on("draw", function (data) {
 function listener(event) {
   switch (event.type) {
     case "mousedown":
+    case "touchstart":
       initDraw(event);
       break;
 
     case "mousemove":
+    case "touchmove":
       if (pos.drawable) draw(event);
       break;
 
     case "mouseout":
     case "mouseup":
+    case "touchend":
       finishDraw();
       break;
   }
@@ -90,4 +93,8 @@ window.onload = function () {
   canvas.addEventListener("mousemove", listener);
   canvas.addEventListener("mouseup", listener);
   canvas.addEventListener("mouseout", listener);
+
+  canvas.addEventListener("touchstart", listener);
+  canvas.addEventListener("touchmove", listener);
+  canvas.addEventListener("touchend ", listener);
 };
