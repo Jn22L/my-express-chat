@@ -66,6 +66,7 @@ function getPosition(event) {
 function clearCanvas() {
   console.log("clearCanvas");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
 }
 
 /**
