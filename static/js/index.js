@@ -28,8 +28,10 @@ function join() {
 
   var input_send = document.getElementById("input_send");
 
-  input_name.style.visibility = "hidden";
-  btn_join.style.visibility = "hidden";
+  //input_name.style.visibility = "hidden";
+  //btn_join.style.visibility = "hidden";
+  input_name.remove();
+  btn_join.remove();
 
   input_send.style.visibility = "visible";
   input_send.focus();

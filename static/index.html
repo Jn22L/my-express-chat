@@ -8,11 +8,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/canvas.js"></script>
-    <script>
-      function pressEnter() {
-        alert(1);
-      }
-    </script>
   </head>
   <body>
     <div id="main">
@@ -23,10 +18,9 @@
         <input type="text" id="join_input" style="width: 80px" placeholder="닉네임" onKeyDown="if(event.keyCode==13){join(); return false;}" autofocus />
         <button id="join_btn" class="button" style="visibility: hidden" onclick="join()">입장</button>
         <input type="text" id="input_send" style="visibility: hidden" onKeyDown="if(event.keyCode==13){send(); return false;}" />
-        <button id="btn_send" class="button" style="visibility: hidden" onclick="send()">보내기</button>
       </div>
       <div>
-        <canvas id="canvas" width="500" height="500"> </canvas>
+        <canvas id="canvas" width="350" height="300"> </canvas>
       </div>
     </div>
   </body>
