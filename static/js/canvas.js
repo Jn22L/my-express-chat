@@ -59,6 +59,8 @@ function getPosition(event) {
   // position:fixed 정확하게 가져오도록 수정.
   var x = event.layerX;
   var y = event.layerY;
+
+  console.log("getPosition", x, y);
   return { X: x, Y: y };
 }
 
