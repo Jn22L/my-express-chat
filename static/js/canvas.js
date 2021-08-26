@@ -53,12 +53,12 @@ function finishDraw() {
 
 function getPosition(event) {
   // css 에서 position:fixed 설정시 좌표값 부정확.
-  // var x = event.pageX - canvas.offsetLeft;
-  // var y = event.pageY - canvas.offsetTop;
+  var x = event.pageX - canvas.offsetLeft;
+  var y = event.pageY - canvas.offsetTop;
 
   // position:fixed 정확하게 가져오도록 수정.
-  var x = event.layerX;
-  var y = event.layerY;
+  // var x = event.layerX;
+  // var y = event.layerY;
 
   console.log("getPosition", x, y);
   return { X: x, Y: y };
