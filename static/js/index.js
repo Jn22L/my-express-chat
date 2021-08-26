@@ -1,7 +1,5 @@
 var socket = io();
 
-let userInfo = { userName: "", userColor: "" };
-
 /**
  * 최초접속시
  *
@@ -49,10 +47,10 @@ function join() {
     color = "color:black;";
   }
 
-  userInfo.userName = input_name.value;
-  userInfo.userColor = color;
+  let userName = input_name.value;
+  let userColor = color;
 
-  socket.emit("newUser", { type: "message", userName: userInfo.userName, userColor: userInfo.userColor });
+  socket.emit("newUser", { type: "message", userName, userColor });
 }
 
 /**
@@ -102,5 +100,5 @@ function send() {
     return;
   }
   document.getElementById("input_send").value = "";
-  socket.emit("message", { type: "message", message: message });
+  socket.emit("message", { type: "message", message });
 }
