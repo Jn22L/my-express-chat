@@ -1,66 +1,46 @@
 var pos = {
   drawable: false,
+  from_X: -1,
+  from_Y: -1,
   x: -1,
   y: -1,
 };
+
 var canvas, ctx;
 
 function initDraw(event) {
   ctx.beginPath();
   pos.drawable = true;
   var coors = getPosition(event);
+  pos.from_X = pos.X;
+  pos.from_Y = pos.Y;
   pos.X = coors.X;
   pos.Y = coors.Y;
   ctx.moveTo(pos.X, pos.Y);
 
   // 서버로 좌표 전송
   socket.emit("draw", { type: "move", X: pos.X, Y: pos.Y });
-}
-
-function initDraw2(event) {
-  ctx.beginPath();
-  pos.drawable = true;
-  var coors = getPosition(event);
-  pos.X = coors.X;
-  pos.Y = coors.Y;
-  ctx.moveTo(pos.X, pos.Y);
-
-  // 서버로 좌표 전송
-  socket.emit("draw", { type: "move", X: pos.X, Y: pos.Y });
+  console.log("moveTo", pos.from_X, pos.from_Y, pos.X, pos.Y);
 }
 
 function draw(event) {
   var coors = getPosition(event);
-  ctx.lineTo(coors.X, coors.Y);
+
+  pos.from_X = pos.X; // 이전 X 좌표 저장
+  pos.from_Y = pos.Y; // 이전 Y 좌표 저장
   pos.X = coors.X;
   pos.Y = coors.Y;
+
+  ctx.moveTo(pos.from_X, pos.from_Y);
+  ctx.lineTo(coors.X, coors.Y);
   ctx.stroke();
 
   // 서버로 좌표 전송
-  socket.emit("draw", { type: "draw", X: pos.X, Y: pos.Y });
-}
-
-function draw2(event) {
-  var coors = getPosition(event);
-  ctx.lineTo(coors.X, coors.Y);
-  pos.X = coors.X;
-  pos.Y = coors.Y;
-  ctx.stroke();
-
-  // 서버로 좌표 전송
-  socket.emit("draw", { type: "draw", X: pos.X, Y: pos.Y });
+  socket.emit("draw", { type: "draw", from_X: pos.from_X, from_Y: pos.from_Y, X: pos.X, Y: pos.Y });
+  console.log("lineTo", pos.from_X, pos.from_Y, pos.X, pos.Y);
 }
 
 function finishDraw() {
-  pos.drawable = false;
-  pos.X = -1;
-  pos.Y = -1;
-
-  // 서버로 좌표 전송
-  socket.emit("draw", { type: "finishDraw", X: pos.X, Y: pos.Y });
-}
-
-function finishDraw2() {
   pos.drawable = false;
   pos.X = -1;
   pos.Y = -1;
@@ -82,12 +62,14 @@ function getPosition(event) {
  * @return
  */
 socket.on("draw", function (data) {
+  console.log("좌표수신", data);
   switch (data.type) {
     case "move":
       ctx.moveTo(data.X, data.Y);
       break;
 
     case "draw":
+      ctx.moveTo(data.from_X, data.from_Y);
       ctx.lineTo(data.X, data.Y);
       ctx.stroke();
       break;
@@ -100,23 +82,19 @@ socket.on("draw", function (data) {
 function listener(event) {
   switch (event.type) {
     case "mousedown":
+    case "touchstart":
       initDraw(event);
       break;
+
     case "mousemove":
+    case "touchmove":
       if (pos.drawable) draw(event);
       break;
+
     case "mouseout":
     case "mouseup":
-      finishDraw();
-      break;
-    case "touchstart":
-      initDraw2(event);
-      break;
-    case "touchmove":
-      if (pos.drawable) draw2(event);
-      break;
     case "touchend":
-      finishDraw2();
+      finishDraw();
       break;
   }
 }
