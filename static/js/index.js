@@ -11,7 +11,7 @@ socket.on("connect", function () {
 });
 
 /**
- * 닉네임 이력후 엔터 입력시
+ * 닉네임 입력후 엔터 입력시
  *
  * @param
  * @return
