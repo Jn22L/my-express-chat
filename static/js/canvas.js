@@ -138,7 +138,14 @@ function choiceColor(event) {
 
 function handleTouch(event) {
   console.log("handleTouch", event.view.innerHeight);
-  document.getElementById("input_send").value = "height:" + event.view.innerHeight;
+  console.log("handleTouch", event.target);
+  document.getElementById("input_send").value = "height, target:" + event.view.innerHeight + "," + event.target.id;
+
+  if (event.target.id === "input_send") {
+    document.getElementById("chat").setAttribute("class", "device-mobile-keyboard");
+  } else {
+    document.getElementById("chat").setAttribute("class", "device-pc");
+  }
 }
 
 window.onload = function () {
