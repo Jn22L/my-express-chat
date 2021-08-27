@@ -78,4 +78,6 @@ canvas {
   font-size: 10px;
   margin: 1px 1px;
   cursor: pointer;
+  width: 25px;
+  height: 30px;
 }

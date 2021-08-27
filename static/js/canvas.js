@@ -72,6 +72,10 @@ function clearCanvas() {
   console.log("clearCanvas");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "black";
+  pos.lineWidth = 1;
+  pos.color = "black";
 }
 
 /**
@@ -122,38 +126,18 @@ function listener(event) {
 }
 
 function choiceColor(event) {
-  console.log("choice Color ", event.target.id);
-  switch (event.target.id) {
-    case "color-black":
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "#000000";
-      pos.lineWidth = 1;
-      pos.color = "#000000";
-      break;
-    case "color-blue":
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "#4285f4";
-      pos.lineWidth = 1;
-      pos.color = "#4285f4";
-      break;
-    case "color-brown":
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "#cc6600";
-      pos.lineWidth = 1;
-      pos.color = "#cc6600";
-      break;
-    case "color-green":
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "#0f9d58";
-      pos.lineWidth = 1;
-      pos.color = "#0f9d58";
-      break;
-    case "color-white":
-      ctx.lineWidth = 10;
-      ctx.strokeStyle = "#ffffff";
-      pos.lineWidth = 10;
-      pos.color = "#ffffff";
-      break;
+  let choiceColor = event.target.dataset.color;
+
+  if (event.target.id.slice(0, 5) === "color") {
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = choiceColor;
+    pos.lineWidth = 1;
+    pos.color = choiceColor;
+  }
+  if (event.target.id === "color-white") {
+    // 흰색은 굵게
+    ctx.lineWidth = 10;
+    pos.lineWidth = 10;
   }
 }
 
