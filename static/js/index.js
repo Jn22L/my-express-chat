@@ -125,4 +125,6 @@ function deviceCheck() {
   }
 }
 
-window.addEventListener("resize", deviceCheck, true);
+function handleTouch(event) {
+  console.log("handleTouch", event.target);
+}

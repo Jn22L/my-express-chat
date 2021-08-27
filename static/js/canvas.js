@@ -136,6 +136,11 @@ function choiceColor(event) {
   document.getElementById("input_send").value = browserSizeInfo;
 }
 
+function handleTouch(event) {
+  console.log("handleTouch", event.view.innerHeight);
+  document.getElementById("input_send").value = "height:" + event.view.innerHeight;
+}
+
 window.onload = function () {
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
@@ -150,4 +155,8 @@ window.onload = function () {
 
   document.getElementById("canvas_clear").addEventListener("click", clearCanvas);
   document.getElementById("control-buttons").addEventListener("click", choiceColor);
+
+  document.querySelector("#main").addEventListener("touchstart", handleTouch);
+  document.querySelector("#main").addEventListener("click", handleTouch);
+  window.addEventListener("resize", deviceCheck, true);
 };
