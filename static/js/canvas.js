@@ -128,23 +128,19 @@ function choiceColor(event) {
     ctx.lineWidth = 10;
     pos.lineWidth = 10;
   }
-
-  // 사이즈 테스트
-  let w = window.innerWidth;
-  let h = window.innerHeight;
-  let browserSizeInfo = "MOBILE : Browser width: " + w + ", height: " + h + ".";
-  document.getElementById("input_send").value = browserSizeInfo;
 }
 
-function handleTouch(event) {
-  console.log("handleTouch", event.view.innerHeight);
-  console.log("handleTouch", event.target);
-  document.getElementById("input_send").value = "height, target:" + event.view.innerHeight + "," + event.target.id;
-
-  if (event.target.id === "input_send") {
-    document.getElementById("chat").setAttribute("class", "device-mobile-keyboard");
-  } else {
-    document.getElementById("chat").setAttribute("class", "device-pc");
+// PC, MOBILE 구별
+function deviceCheck() {
+  var pcDevice = "win16|win32|win64|mac|macintel";
+  if (navigator.platform) {
+    if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
+      // Mobile 접속시, 채팅창 사이즈 줄이기( 가상키보드 올라와도 canvas 고정되게)
+      console.log("MOBILE");
+      document.getElementById("chat").setAttribute("class", "device-mobile");
+    } else {
+      console.log("PC");
+    }
   }
 }
 
@@ -163,7 +159,5 @@ window.onload = function () {
   document.getElementById("canvas_clear").addEventListener("click", clearCanvas);
   document.getElementById("control-buttons").addEventListener("click", choiceColor);
 
-  document.querySelector("#main").addEventListener("touchstart", handleTouch);
-  document.querySelector("#main").addEventListener("click", handleTouch);
-  window.addEventListener("resize", deviceCheck, true);
+  deviceCheck();
 };
