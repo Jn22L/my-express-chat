@@ -100,3 +100,37 @@ function send() {
   document.getElementById("input_send").value = "";
   socket.emit("message", { type: "message", message });
 }
+
+// PC, MOBILE 구별
+function deviceCheck() {
+  // 디바이스 종류 설정
+  var pcDevice = "win16|win32|win64|mac|macintel";
+
+  // 접속한 디바이스 환경
+  if (navigator.platform) {
+    if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
+      console.log("MOBILE");
+      alert("모바일");
+    } else {
+      console.log("PC");
+    }
+  }
+}
+
+deviceCheck();
+
+let w = window.innerWidth;
+let h = window.innerHeight;
+let browserSizeInfo = "Browser width: " + w + ", height: " + h + ".";
+
+window.addEventListener(
+  "resize",
+  function () {
+    console.log("Resizing...");
+    w = window.innerWidth;
+    h = window.innerHeight;
+    browserSizeInfo = "Browser width: " + w + ", height: " + h + ".";
+    console.log("창크기", browserSizeInfo);
+  },
+  true
+);
