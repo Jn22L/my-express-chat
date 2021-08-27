@@ -101,24 +101,23 @@ function send() {
   socket.emit("message", { type: "message", message });
 }
 
-// 모바일 : 하단 키보드 보일때 채팅창 resize
-function resizeMobile() {
+// PC, MOBILE 구별
+function deviceCheck() {
+  // 디바이스 종류 설정
   var pcDevice = "win16|win32|win64|mac|macintel";
+
+  // 접속한 디바이스 환경
   if (navigator.platform) {
     if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
       console.log("MOBILE");
       let w = window.innerWidth;
       let h = window.innerHeight;
+      let browserSizeInfo = "MOBILE : Browser width: " + w + ", height: " + h + ".";
       document.getElementById("input_send").value = browserSizeInfo;
-      if (window.innerHeight < 470) {
-        document.getElementById("chat").setAttribute("class", "device-mobile-keyboard");
-      } else {
-        document.getElementById("chat").setAttribute("class", "device-mobile");
-      }
     } else {
       console.log("PC");
     }
   }
 }
 
-window.addEventListener("resize", resizeMobile, true);
+window.addEventListener("resize", deviceCheck, true);
