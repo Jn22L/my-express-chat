@@ -128,6 +128,12 @@ function choiceColor(event) {
     ctx.lineWidth = 10;
     pos.lineWidth = 10;
   }
+
+  // 사이즈 테스트
+  let w = window.innerWidth;
+  let h = window.innerHeight;
+  let browserSizeInfo = "MOBILE : Browser width: " + w + ", height: " + h + ".";
+  document.getElementById("input_send").value = browserSizeInfo;
 }
 
 window.onload = function () {
