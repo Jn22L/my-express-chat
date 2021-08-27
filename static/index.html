@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
     <title>채팅</title>
     <link rel="stylesheet" href="/css/index.css" />
     <script src="/socket.io/socket.io.js"></script>
@@ -21,7 +21,7 @@
         <canvas id="canvas" width="300" height="200"></canvas>
       </div>
       <div id="control-buttons">
-        <button id="canvas_clear">지움</button>
+        <button id="canvas_clear" readonly onfocus="this.blur()">지움</button>
         <button id="color-1" class="color" style="background-color: red" data-color="red"></button>
         <button id="color-2" class="color" style="background-color: pink" data-color="pink"></button>
         <button id="color-4" class="color" style="background-color: purple" data-color="purple"></button>
