@@ -14,7 +14,7 @@
       <div id="chat"></div>
       <div>
         <input type="text" id="join_input" style="width: 80px" placeholder="닉네임" onKeyDown="if(event.keyCode==13){join(); return false;}" autofocus />
-        <button id="join_btn" class="button" style="visibility: hidden" onclick="join()">입장</button>
+        <button id="join_btn" class="button" onclick="join()">입장</button>
         <input type="text" id="input_send" style="visibility: hidden" onKeyDown="if(event.keyCode==13){send(); return false;}" />
       </div>
       <div>
@@ -24,9 +24,9 @@
         <button id="canvas_clear" readonly onfocus="this.blur()">지움</button>
         <button id="color-1" class="color" style="background-color: red" data-color="red"></button>
         <button id="color-2" class="color" style="background-color: pink" data-color="pink"></button>
-        <button id="color-4" class="color" style="background-color: purple" data-color="purple"></button>
-        <button id="color-5" class="color" style="background-color: navy" data-color="navy"></button>
-        <button id="color-6" class="color" style="background-color: green" data-color="green"></button>
+        <button id="color-3" class="color" style="background-color: purple" data-color="purple"></button>
+        <button id="color-4" class="color" style="background-color: navy" data-color="navy"></button>
+        <button id="color-5" class="color" style="background-color: green" data-color="green"></button>
         <button id="color-6" class="color" style="background-color: blue" data-color="blue"></button>
         <button id="color-7" class="color" style="background-color: orange" data-color="orange"></button>
         <button id="color-white" class="color" style="background-color: #ffffff; border: 1px solid black" data-color="#ffffff"></button>

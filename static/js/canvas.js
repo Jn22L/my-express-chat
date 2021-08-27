@@ -11,8 +11,6 @@ var pos = {
 var canvas, ctx;
 
 function initDraw(event) {
-  console.log("draw event 이벤트", event);
-
   ctx.beginPath();
   pos.drawable = true;
   var coors = getPosition(event);
@@ -55,8 +53,6 @@ function finishDraw() {
 }
 
 function getPosition(event) {
-  console.log(event);
-
   // css 에서 position:fixed 설정시 8차이 발생 -> 주석
   // var x = event.pageX - canvas.offsetLeft;
   // var y = event.pageY - canvas.offsetTop;
@@ -69,7 +65,6 @@ function getPosition(event) {
 }
 
 function clearCanvas() {
-  console.log("clearCanvas");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   ctx.lineWidth = 1;
@@ -85,13 +80,11 @@ function clearCanvas() {
  * @return
  */
 socket.on("draw", function (data) {
-  console.log("좌표수신", data);
   switch (data.type) {
     case "move":
       ctx.beginPath();
       ctx.moveTo(data.X, data.Y);
       break;
-
     case "draw":
       ctx.lineWidth = data.lineWidth;
       ctx.strokeStyle = data.color;
@@ -99,7 +92,6 @@ socket.on("draw", function (data) {
       ctx.lineTo(data.X, data.Y);
       ctx.stroke();
       break;
-
     case "finishDraw":
       break;
   }
@@ -111,12 +103,10 @@ function listener(event) {
     case "touchstart":
       initDraw(event);
       break;
-
     case "mousemove":
     case "touchmove":
       if (pos.drawable) draw(event);
       break;
-
     case "mouseout":
     case "mouseup":
     case "touchend":
@@ -135,7 +125,6 @@ function choiceColor(event) {
     pos.color = choiceColor;
   }
   if (event.target.id === "color-white") {
-    // 흰색은 굵게
     ctx.lineWidth = 10;
     pos.lineWidth = 10;
   }
@@ -149,7 +138,6 @@ window.onload = function () {
   canvas.addEventListener("mousemove", listener);
   canvas.addEventListener("mouseup", listener);
   canvas.addEventListener("mouseout", listener);
-
   canvas.addEventListener("touchstart", listener);
   canvas.addEventListener("touchmove", listener);
   canvas.addEventListener("touchend ", listener);

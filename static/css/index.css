@@ -7,53 +7,29 @@ body {
   position: fixed;
 }
 
-/* 메인 */
 #main {
-  margin-top: 10px;
   border-radius: 20px;
   background-color: white;
-  text-align: left;
   width: 300px;
   height: 200px;
 }
 
-/* 채팅 영역 */
 #chat {
   width: 300px;
   height: 200px;
   overflow-y: auto;
 }
 
-/* 접속 알림 */
 .connect {
   width: 280px;
   background-color: aquamarine;
   text-align: center;
-  margin-top: 10px;
 }
 
-/* 접속 종료 알림 */
 .disconnect {
   width: 280px;
   background-color: indianred;
   text-align: center;
-  margin-top: 10px;
-}
-
-/* 내가 보낸 메시지 */
-.me {
-  width: 280px;
-  background-color: white;
-  border-radius: 5px;
-  margin-top: 1px;
-}
-
-/* 상대방이 보낸 메시지 */
-.other {
-  width: 280px;
-  background-color: white;
-  border-radius: 5px;
-  margin-top: 1px;
 }
 
 input {

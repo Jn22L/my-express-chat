@@ -7,7 +7,7 @@ var socket = io();
  * @return
  */
 socket.on("connect", function () {
-  console.log("connect");
+  // console.log("connect");
 });
 
 /**
@@ -19,7 +19,6 @@ socket.on("connect", function () {
 function join() {
   var input_name = document.getElementById("join_input");
   var btn_join = document.getElementById("join_btn");
-  console.log(input_name.value);
   if (input_name.value.trim() == "") {
     alert("닉네님을 입력하세요!");
     document.getElementById("join_input").value = "";
@@ -28,8 +27,6 @@ function join() {
 
   var input_send = document.getElementById("input_send");
 
-  //input_name.style.visibility = "hidden";
-  //btn_join.style.visibility = "hidden";
   input_name.remove();
   btn_join.remove();
 
@@ -38,13 +35,12 @@ function join() {
 
   const date = new Date();
   var seconds = String(date.getSeconds()).slice(-1);
-  console.log("seconds", seconds);
   if (seconds >= 0 && seconds <= 2) {
-    color = "color:#4285f4;"; //구글 BLUE
+    color = "color:#4285f4;";
   } else if (seconds >= 3 && seconds <= 5) {
-    color = "color:#cc6600;"; // 갈색
+    color = "color:#cc6600;";
   } else if (seconds >= 6 && seconds <= 8) {
-    color = "color:#0f9d58;"; // 구글 GREEN
+    color = "color:#0f9d58;";
   } else {
     color = "color:black;";
   }
@@ -62,7 +58,7 @@ function join() {
  * @return
  */
 socket.on("update", function (data) {
-  console.log("서버로부터 받은", data);
+  // console.log("서버로부터 받은", data);
   var chat = document.getElementById("chat");
   var message = document.createElement("div");
   var node = document.createElement("div");
