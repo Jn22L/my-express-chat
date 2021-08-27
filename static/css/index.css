@@ -22,14 +22,7 @@ body {
 
 #chat.device-mobile {
   width: 300px;
-  height: 200px;
-  overflow-y: auto;
-}
-
-/* 모바일에서 keyboard 보일때 */
-#chat.device-mobile-keyboard {
-  width: 300px;
-  height: 100px;
+  height: 150px;
   overflow-y: auto;
 }
 
