@@ -14,9 +14,22 @@ body {
   height: 200px;
 }
 
-#chat {
+#chat.device-pc {
   width: 300px;
   height: 200px;
+  overflow-y: auto;
+}
+
+#chat.device-mobile {
+  width: 300px;
+  height: 200px;
+  overflow-y: auto;
+}
+
+/* 모바일에서 keyboard 보일때 */
+#chat.device-mobile-keyboard {
+  width: 300px;
+  height: 100px;
   overflow-y: auto;
 }
 
