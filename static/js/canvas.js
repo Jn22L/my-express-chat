@@ -136,6 +136,7 @@ function deviceCheck() {
   if (navigator.platform) {
     if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
       // Mobile 접속시, 채팅창 사이즈 줄이기( 가상키보드 올라와도 canvas 고정되게)
+      // ( 그러나, 스크롤 생기면서 움직임... 나중에 볼것 ?)
       console.log("MOBILE");
       document.getElementById("chat").setAttribute("class", "device-mobile");
     } else {
