@@ -4,6 +4,8 @@ var pos = {
   from_Y: -1,
   x: -1,
   y: -1,
+  color: "black",
+  lineWidth: 1,
 };
 
 var canvas, ctx;
@@ -21,7 +23,7 @@ function initDraw(event) {
   ctx.moveTo(pos.X, pos.Y);
 
   // 서버로 좌표 전송
-  socket.emit("draw", { type: "move", X: pos.X, Y: pos.Y });
+  socket.emit("draw", { type: "move", X: pos.X, Y: pos.Y, color: pos.color, lineWidth: pos.lineWidth });
 }
 
 function draw(event) {
@@ -32,12 +34,15 @@ function draw(event) {
   pos.X = coors.X;
   pos.Y = coors.Y;
 
+  ctx.lineWidth = pos.lineWidth;
+  ctx.strokeStyle = pos.color;
+
   ctx.moveTo(pos.from_X, pos.from_Y);
   ctx.lineTo(coors.X, coors.Y);
   ctx.stroke();
 
   // 서버로 좌표 전송
-  socket.emit("draw", { type: "draw", from_X: pos.from_X, from_Y: pos.from_Y, X: pos.X, Y: pos.Y });
+  socket.emit("draw", { type: "draw", from_X: pos.from_X, from_Y: pos.from_Y, X: pos.X, Y: pos.Y, color: pos.color, lineWidth: pos.lineWidth });
 }
 
 function finishDraw() {
@@ -46,7 +51,7 @@ function finishDraw() {
   pos.Y = -1;
 
   // 서버로 좌표 전송
-  socket.emit("draw", { type: "finishDraw", X: pos.X, Y: pos.Y });
+  socket.emit("draw", { type: "finishDraw", X: pos.X, Y: pos.Y, color: pos.color, lineWidth: pos.lineWidth });
 }
 
 function getPosition(event) {
@@ -71,7 +76,7 @@ function clearCanvas() {
 
 /**
  * 서버에서 canvas 좌표 수신시
- * -> 동시에 그릴때 엉망되는 문제 .. 어떻게 분리하지?
+ *
  * @param
  * @return
  */
@@ -79,10 +84,13 @@ socket.on("draw", function (data) {
   console.log("좌표수신", data);
   switch (data.type) {
     case "move":
+      ctx.beginPath();
       ctx.moveTo(data.X, data.Y);
       break;
 
     case "draw":
+      ctx.lineWidth = data.lineWidth;
+      ctx.strokeStyle = data.color;
       ctx.moveTo(data.from_X, data.from_Y);
       ctx.lineTo(data.X, data.Y);
       ctx.stroke();
@@ -113,6 +121,42 @@ function listener(event) {
   }
 }
 
+function choiceColor(event) {
+  console.log("choice Color ", event.target.id);
+  switch (event.target.id) {
+    case "color-black":
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#000000";
+      pos.lineWidth = 1;
+      pos.color = "#000000";
+      break;
+    case "color-blue":
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#4285f4";
+      pos.lineWidth = 1;
+      pos.color = "#4285f4";
+      break;
+    case "color-brown":
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#cc6600";
+      pos.lineWidth = 1;
+      pos.color = "#cc6600";
+      break;
+    case "color-green":
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#0f9d58";
+      pos.lineWidth = 1;
+      pos.color = "#0f9d58";
+      break;
+    case "color-white":
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = "#ffffff";
+      pos.lineWidth = 10;
+      pos.color = "#ffffff";
+      break;
+  }
+}
+
 window.onload = function () {
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
@@ -127,4 +171,5 @@ window.onload = function () {
   canvas.addEventListener("touchend ", listener);
 
   document.getElementById("canvas_clear").addEventListener("click", clearCanvas);
+  document.getElementById("control-buttons").addEventListener("click", choiceColor);
 };

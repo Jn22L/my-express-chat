@@ -11,9 +11,7 @@
   </head>
   <body>
     <div id="main">
-      <div id="chat">
-        <!-- 채팅 메시지 영역 -->
-      </div>
+      <div id="chat"></div>
       <div>
         <input type="text" id="join_input" style="width: 80px" placeholder="닉네임" onKeyDown="if(event.keyCode==13){join(); return false;}" autofocus />
         <button id="join_btn" class="button" style="visibility: hidden" onclick="join()">입장</button>
@@ -22,8 +20,13 @@
       <div>
         <canvas id="canvas" width="300" height="200"></canvas>
       </div>
-      <div>
+      <div id="control-buttons">
         <button id="canvas_clear">지우기</button>
+        <button id="color-black" class="color" style="background-color: #000000"></button>
+        <button id="color-blue" class="color" style="background-color: #4285f4"></button>
+        <button id="color-brown" class="color" style="background-color: #cc6600"></button>
+        <button id="color-green" class="color" style="background-color: #0f9d58"></button>
+        <button id="color-white" class="color" style="background-color: #ffffff; border: 1px solid black"></button>
       </div>
     </div>
   </body>
