@@ -131,6 +131,7 @@ function choiceColor(event) {
 }
 
 // PC, MOBILE 구별
+/*
 function deviceCheck() {
   console.log("deviceCheck");
   var pcDevice = "win16|win32|win64|mac|macintel";
@@ -144,6 +145,28 @@ function deviceCheck() {
     } else {
       //console.log("PC");
       //alert("PC.deviceCheck");
+      document.getElementById("chat").setAttribute("class", "device-pc");
+    }
+  }
+}
+*/
+
+// mobile에서 채팅 입력창에 focus가 있을때(가상키보드 보일때) -> 사이즈 줄이기
+function handleFocus() {
+  var pcDevice = "win16|win32|win64|mac|macintel";
+  if (navigator.platform) {
+    if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
+      document.getElementById("chat").setAttribute("class", "device-mobile");
+    }
+  }
+}
+
+// mobile에서 채팅 입력창에 focus가 사라질때(가상키보드 없어질때) -> 사이즈 원복
+function handleBlur() {
+  console.log("deviceCheck");
+  var pcDevice = "win16|win32|win64|mac|macintel";
+  if (navigator.platform) {
+    if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
       document.getElementById("chat").setAttribute("class", "device-pc");
     }
   }
@@ -164,10 +187,6 @@ window.onload = function () {
   document.getElementById("canvas_clear").addEventListener("click", clearCanvas);
   document.getElementById("control-buttons").addEventListener("click", choiceColor);
 
-  window.addEventListener("resize", deviceCheck);
-
-  document.getElementById("input_send").addEventListener("focus", deviceCheck, true);
-  document.getElementById("input_send").addEventListener("blur", deviceCheck, true);
-
-  deviceCheck();
+  document.getElementById("input_send").addEventListener("focus", handleFocus, true);
+  document.getElementById("input_send").addEventListener("blur", handleBlur, true);
 };
