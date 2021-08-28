@@ -166,20 +166,8 @@ window.onload = function () {
 
   window.addEventListener("resize", deviceCheck);
 
-  document.getElementById("input_send").addEventListener(
-    "focus",
-    function (event) {
-      event.target.style.background = "pink";
-    },
-    true
-  );
-  document.getElementById("input_send").addEventListener(
-    "blur",
-    function (event) {
-      event.target.style.background = "";
-    },
-    true
-  );
+  document.getElementById("input_send").addEventListener("focus", deviceCheck, true);
+  document.getElementById("input_send").addEventListener("blur", deviceCheck, true);
 
   deviceCheck();
 };
