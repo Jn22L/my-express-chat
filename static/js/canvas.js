@@ -138,12 +138,12 @@ function deviceCheck() {
     if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
       // Mobile 접속시, 채팅창 사이즈 줄이기( 가상키보드 올라와도 canvas 고정되게)
       // ( 그러나, 스크롤 생기면서 움직임... 나중에 볼것 ?)
-      console.log("MOBILE");
-      alert("mobile.deviceCheck");
+      //console.log("MOBILE");
+      //alert("mobile.deviceCheck");
       document.getElementById("chat").setAttribute("class", "device-mobile");
     } else {
-      console.log("PC");
-      alert("PC.deviceCheck");
+      //console.log("PC");
+      //alert("PC.deviceCheck");
       document.getElementById("chat").setAttribute("class", "device-pc");
     }
   }

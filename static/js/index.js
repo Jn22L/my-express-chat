@@ -100,22 +100,3 @@ function send() {
   document.getElementById("input_send").value = "";
   socket.emit("message", { type: "message", message });
 }
-
-// PC, MOBILE 구별
-function deviceCheck() {
-  // 디바이스 종류 설정
-  var pcDevice = "win16|win32|win64|mac|macintel";
-
-  let w = window.innerWidth;
-  let h = window.innerHeight;
-  let browserSizeInfo = "MOBILE : Browser width: " + w + ", height: " + h + ".";
-
-  // 접속한 디바이스 환경
-  if (navigator.platform) {
-    if (pcDevice.indexOf(navigator.platform.toLowerCase()) < 0) {
-      console.log("MOBILE");
-    } else {
-      console.log("PC");
-    }
-  }
-}
