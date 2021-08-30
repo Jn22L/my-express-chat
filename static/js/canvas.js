@@ -98,6 +98,7 @@ socket.on("draw", function (data) {
 });
 
 function listener(event) {
+  event.preventDefault();
   switch (event.type) {
     case "mousedown":
     case "touchstart":
