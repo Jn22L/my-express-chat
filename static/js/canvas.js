@@ -181,9 +181,9 @@ window.onload = function () {
   canvas.addEventListener("mousemove", listener);
   canvas.addEventListener("mouseup", listener);
   canvas.addEventListener("mouseout", listener);
-  canvas.addEventListener("touchstart", listener);
-  canvas.addEventListener("touchmove", listener);
-  canvas.addEventListener("touchend ", listener);
+  canvas.addEventListener("touchstart", listener, false);
+  canvas.addEventListener("touchmove", listener, false);
+  canvas.addEventListener("touchend ", listener, false);
 
   document.getElementById("canvas_clear").addEventListener("click", clearCanvas);
   document.getElementById("control-buttons").addEventListener("click", choiceColor);
