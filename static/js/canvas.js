@@ -113,6 +113,7 @@ function listener(event) {
       finishDraw();
       break;
   }
+  return false;
 }
 
 function choiceColor(event) {
