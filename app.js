@@ -23,7 +23,7 @@ app.get("/", function (request, response) {
 });
 
 io.sockets.on("connection", function (socket) {
-  /* 닉네임 입력후 조인 */
+  /* 닉네임 입력후 조인  */
   socket.on("newUser", function (data) {
     console.log("newUser.data", data);
     socket.userName = data.userName;
