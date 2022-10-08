@@ -52,15 +52,22 @@ function finishDraw() {
   socket.emit("draw", { type: "finishDraw", X: pos.X, Y: pos.Y, color: pos.color, lineWidth: pos.lineWidth });
 }
 
-function getPosition(event) {
+function getPosition(ev) {
   // css 에서 position:fixed 설정시 8차이 발생 -> 주석
   // var x = event.pageX - canvas.offsetLeft;
   // var y = event.pageY - canvas.offsetTop;
-
-  // 좌표 8 차이 보정 하드코딩 : 추후 시간되면 찾아볼것 ?
-  var x = event.pageX - canvas.offsetLeft - 8;
-  var y = event.pageY - canvas.offsetTop - 8;
-
+  var x, y;
+  switch (ev.type) {
+    case "mousemove":
+      // 좌표 8 차이 보정 하드코딩 : 추후 시간되면 찾아볼것 ???
+      x = ev.pageX - canvas.offsetLeft - 8;
+      y = ev.pageY - canvas.offsetTop - 8;
+      break;
+    case "touchmove":
+      x = ev.touches[0].clientX - ev.target.offsetLeft;
+      y = ev.touches[0].clientY - ev.target.offsetTop + document.documentElement.scrollTop;
+      break;
+  }
   return { X: x, Y: y };
 }
 
